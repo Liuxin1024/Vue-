@@ -1,28 +1,22 @@
+
+<!--
+这个是总组件
+-->
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+  <div>
+    <router-view/>
+    <FooterGuide/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  import FooterGuide from './components/FooterGuide/FooterGuide.vue'
+  export default {
+    components:{                // 在 响应的路由组件里 写完之后 要在这个组件里面使用
+      FooterGuide               // 先把需要用的路由组件 引入过来 然后在component 里面映射成路由就可以在页面中使用了
+    }
   }
-}
 </script>
+<style lang="stylus" rel="stylesheet/stylus">
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
