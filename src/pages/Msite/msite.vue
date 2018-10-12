@@ -1,7 +1,7 @@
 <template>
   <section class="msite">
     <!--首页头部-->
-    <TopHeader title="昌平区北七家宏福科技园(337省道北)">
+    <TopHeader :title="address.name">
       <span class="header_search" slot="left">
           <i class="iconfont icon-sousuo"></i>
        </span>
@@ -131,10 +131,29 @@
 
 <script>
 import ShopList from '../../components/ShopList/ShopList.vue'
+import {mapState} from 'vuex'
+import Swiper from 'swiper'
   export default {
+
+    mounted (){
+      this.$store.dispatch('getShops')
+      //  轮播图 为什么写在这呢 因为 写在外面的话 列表还没有
+      // 挂载上 也就是没有显示出来  所有要写在 列表后面
+      new Swiper('.swiper-container',{
+        loop: true, // 循环模式选项
+        direction: 'vertical', // 垂直切换选项
+        // 如果需要分页器
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      })
+    },
     components:{
       ShopList
-    }
+    },
+    computed:{
+      ...mapState(['address'])  //取值
+    },
   }
 </script>
 

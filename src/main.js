@@ -3,7 +3,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import TopHeader from './components/TopHeader/TopHeader.vue'
+
+import 'swiper/dist/css/swiper.min.css'
 
 /*   注册全局路由组件*/
 Vue.component('TopHeader',TopHeader)
@@ -11,6 +14,7 @@ Vue.component('TopHeader',TopHeader)
 new Vue({
   el: '#app',               // 这个是元素选择器  要跟HTML里面的 div 的id 所对应
   router,                    //在这要 注意的点是 import引入router的时候 router 的名字 要跟注册的名字一致
+  store,
   // 比如 import Router from  在这注册的时候也要写 Router
  // components: { App },     // 这个是注册组件
   //template: '<App/>',       // 写组件标签
