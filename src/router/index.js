@@ -26,20 +26,33 @@ export default new VueRouter({
   routes:[          //z这是真的坑（我之间写惯了一直写的是routers） 我的天 一字之差 天差地别  routes routes routes routes routes
     {
       path:'/msite',
-      component:Msite
+      component:Msite,
+      meta:{
+        showFooter:true
+      }
     },
     {
       path:'/order',
-      component:Order
+      component:Order,
+      meta:{
+        showFooter:true
+      }
     },
     {
       path:'/profile',
-      component:Profile
+      component:Profile,
+      meta:{
+        showFooter:true
+      }
     },
     {
       path:'/search',
-      component:Search
+      component:Search,
+      meta:{
+        showFooter:true
+      }
     },
+
     {
       path:'/login',
       component:Login
