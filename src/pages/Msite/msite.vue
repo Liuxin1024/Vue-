@@ -13,104 +13,12 @@
     <nav class="msite_nav">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <a href="javascript:" class="link_to_food">
+          <div class="swiper-slide" v-for="(categorys ,index) in categorysArr" :key="index">
+            <a href="javascript:" class="link_to_food" v-for="(category,index) in categorys" :key="index">
               <div class="food_container">
-                <img src="./images/nav/1.jpg">
+                <img :src="baseImgUrl+category.image_url">
               </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/2.jpg">
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/3.jpg">
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/4.jpg">
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/5.jpg">
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/6.jpg">
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/7.jpg">
-              </div>
-              <span>预订早餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/8.jpg">
-              </div>
-              <span>土豪推荐</span>
-            </a>
-          </div>
-          <div class="swiper-slide">
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/9.jpg">
-              </div>
-              <span>甜品饮品</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/10.jpg">
-              </div>
-              <span>商超便利</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/11.jpg">
-              </div>
-              <span>美食</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/12.jpg">
-              </div>
-              <span>简餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/13.jpg">
-              </div>
-              <span>新店特惠</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/14.jpg">
-              </div>
-              <span>准时达</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/1.jpg">
-              </div>
-              <span>预订早餐</span>
-            </a>
-            <a href="javascript:" class="link_to_food">
-              <div class="food_container">
-                <img src="./images/nav/2.jpg">
-              </div>
-              <span>土豪推荐</span>
+              <span>{{category.title}}</span>
             </a>
           </div>
         </div>
@@ -135,25 +43,75 @@ import {mapState} from 'vuex'
 import Swiper from 'swiper'
   export default {
 
+    data(){
+      return {      // 在这的语法还是不熟练 data里面的数据要return 一个大括号
+        baseImgUrl: 'https://fuss10.elemecdn.com'
+      }
+
+    },
     mounted (){
       this.$store.dispatch('getShops')
-      //  轮播图 为什么写在这呢 因为 写在外面的话 列表还没有
-      // 挂载上 也就是没有显示出来  所有要写在 列表后面
-      new Swiper('.swiper-container',{
-        loop: true, // 循环模式选项
-        direction: 'vertical', // 垂直切换选项
-        // 如果需要分页器
-        pagination: {
-          el: '.swiper-pagination',
-        },
-      })
     },
     components:{
       ShopList
     },
     computed:{
-      ...mapState(['address'])  //取值
+      ...mapState(['address','categorys']) , //取值
+      /*
+      * 在计算属性里面写 二维数组
+      * 先取值 大数组的产生是由categorys 组成的 先得到categorys 从this中取出
+      * 要遍历categorys 拿出每一个 分类 就把分类定义成 c
+      * 将当前 遍历出来的 分类对象保存到小数组当中
+      * 如果小数组的长度等于8 那就在创建一个小数组
+      * 注意const 和 let的用法  小数组 是个变量 要用let
+      * 这样就写好了
+      * 然后在上面相应的 标签里 循环遍历数组
+      * 在返回的数据里面找 对应的 数据结构 用表达式在对应的地方显示数据就好
+      * 还有图片的路径显示 要用 拼串 看情况
+      * 完成之后有一个问题就是 轮播图不出来是因为 列表的数据还渲染完
+      * 解决问题就是等数据渲染完 轮播图在监听数据显示
+      * 所以要监视categorys 的值什么时候渲染完然后进行响应的操作
+      *  这时候要有两个办法就是定一个定时器等一下就好了但是你不知道
+      *  什么时候渲染完 又要调多少时间 所以要用到一个Vue的新语法了
+      *  $nextTick 这是回调函数 回调一个箭头函数
+      * */
+      //产生一个二维数组 每个小数组的个数 为8
+      categorysArr(){
+        const {categorys} = this
+        const arr = []    // 这个就是二维数组
+        let smallArr = []  // 这个就是小数组
+
+        categorys.forEach(e => {
+          //当小数组为空数组时 才把
+          if (smallArr.length ===0) {
+            arr.push(smallArr)
+          }
+          //将当前 遍历出来的 分类对象保存到小数组当中
+          smallArr.push(e)
+          if (smallArr.length ===8) {
+              smallArr =[]
+          }
+        })
+        return arr  //最后要把 大数组暴露出去
+      }
     },
+    watch:{
+      categorys(value){      //注意状态数据变化后， 更新对应的界面是一步执行的
+
+        this.$nextTick(()=>{
+          //  轮播图 为什么写在这呢 因为 写在外面的话 列表还没有
+          // 挂载上 也就是没有显示出来  所有要写在 列表后面
+          new Swiper('.swiper-container',{
+            loop: true, // 循环模式选项
+            //direction: 'vertical', // 垂直切换选项
+            // 如果需要分页器
+            pagination: {
+              el: '.swiper-pagination',
+            },
+          })
+        })
+      }
+    }
   }
 </script>
 

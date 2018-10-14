@@ -19,7 +19,7 @@ export default {
     const {latitude,longitude} = state
     //发送ajax请求
     const result = await reqAddress(latitude+','+longitude)
-    //  我们要得到 result 到时不能直接得到  需要用await  得到的数据是 {code:0 , data:address}
+    //  我们要得到 result 但是不能直接得到  需要用await  得到的数据是 {code:0 , data:address}
     if (result.code ===0) {
         const address = result.data
       // 把 要传的值从result里面 取出来
