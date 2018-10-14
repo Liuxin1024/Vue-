@@ -103,7 +103,7 @@ import Swiper from 'swiper'
           // 挂载上 也就是没有显示出来  所有要写在 列表后面
           new Swiper('.swiper-container',{
             loop: true, // 循环模式选项
-            //direction: 'vertical', // 垂直切换选项
+            direction: 'vertical', // 垂直切换选项
             // 如果需要分页器
             pagination: {
               el: '.swiper-pagination',

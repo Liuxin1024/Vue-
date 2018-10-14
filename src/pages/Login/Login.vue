@@ -13,7 +13,8 @@
           <div :class="{on:loginWay}">
             <section class="login_message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
-              <button :disabled="!isRightPhone || computeTime>0" class="get_verification" :class="{right_phone_number:isRightPhone}" @click="sendCode">
+              <button :disabled="!isRightPhone || computeTime>0" class="get_verification"
+                      :class="{right_phone_number:isRightPhone}" @click.prevent="sendCode">
                 {{computeTime>0 ? `已发送(${computeTime}秒)` : '获取验证码'}}</button>
             </section>
             <section class="login_verification">
@@ -38,7 +39,8 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码">
-                <img class="get_verification" src="images/captcha.svg" alt="captcha">
+                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha"
+                     ref="captcha" @click="updateCaptcha">
               </section>
             </section>
           </div>
@@ -53,13 +55,14 @@
   </section>
 </template>
 <script>
+  import {reqPwdLogin,reqSendCode,reqSmsLogin,} from '../../api'
   export default {
     data () {
       return {
-        loginWay:true,      // true 是短信 false 是 密码
+        loginWay:false,      // true 是短信 false 是 密码
         phone:'',           //手机号
         computeTime:0  ,     // 倒计时的剩余时间由它来决定 验证码的显示
-        isShowPwd:false
+        isShowPwd:false      // 密码
 
       }
     },
@@ -70,20 +73,33 @@
     },
     methods:{  //本意是方法  methods
       //发送验证码
-      sendCode(){
+      async sendCode(){
 //        alert(11111111)
 
         //启动倒计时
         this.computeTime = 30
         //开启定时器
         const intervalId = setInterval(()=>{
-          if (this.computeTime === 0) {
+          if (this.computeTime <= 0) {
             clearInterval(intervalId)
+            this.computeTime = 0
             return
           }
           this.computeTime--
         },1000)
-      }
+        const result = await reqSendCode(this.phone)
+        if (result.code === 0) {
+            alert('发送验证码成功~~')
+        }else {
+          //既然失败了 那么定时器也应该不动了
+          this.computeTime = 0    // 定时器等于 0 进入上面的逻辑 然后就停了
+          alert('警告：'+result.msg)
+        }
+
+      },
+      updateCaptcha(){
+        this.$refs.captcha.src = 'http://localhost:4000/captcha?time='+Date.now() //告诉浏览器一个新的URL 这是浏览器就会自动发请求
+      },
     }
   }
 </script>
