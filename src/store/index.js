@@ -1,16 +1,19 @@
 /*
-* vuex 核心管理对象 store
-* */
+vuex核心管理对象store
+ */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import actions from './actions'
-import mutations from './mutations'
-import getters from './getters'
+
 import state from './state'
+import mutations from './mutations'
+import actions from './actions'
+import getters from './getters'
+
 Vue.use(Vuex)
+
 export default new Vuex.Store({
-  actions,
+  state,
   mutations,
-  getters,
-  state
+  actions,
+  getters
 })

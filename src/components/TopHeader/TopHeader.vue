@@ -1,5 +1,4 @@
 <template>
-  <!--首页头部-->
   <header class="header">
     <slot name="left"></slot>
     <span class="header_title">
@@ -9,12 +8,10 @@
   </header>
 </template>
 <script>
-  /*  在这要注意的是 用双大括号的时候里面的 值是从外面传过来的
-  * 就要在 props 里面声明一下  是 什么类型的 */
   export default {
-  props:{
-    title:String
-  }
+    props: {
+      title: String
+    }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

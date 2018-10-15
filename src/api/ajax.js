@@ -6,7 +6,7 @@ import axios from 'axios'
 
 export default function ajax(url, data={}, type='GET') {
 
-  return new Promise(function (resolve,reject) {
+  return new Promise(function (resolve, reject) {
     let promise
     // 发异步请求
     if(type==='GET') {
@@ -30,14 +30,13 @@ export default function ajax(url, data={}, type='GET') {
     }
     promise.then(
       response => {
-        resolve(response.data)
+        resolve(response.data)  // 异步按成功后传递的数据不再是response, 而是response里的data
       },
       error => {
         reject(error)
       }
     )
   })
-
 
 }
 

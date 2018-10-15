@@ -9,10 +9,13 @@
   </section>
 </template>
 <script>
-
+  export default {
+    data() {
+      return {}
+    }
+  }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  @import '../../common/stylus/misins.styl'
   .order  //订单
     width 100%
     .order_no_login

@@ -1,24 +1,24 @@
 <template>
   <footer class="footer_guide border-1px">
-    <a href="javascript:;" class="guide_item " @click="goTo('/msite')" :class="{on:$route.path==='/msite'}">
+    <span class="guide_item" @click="goTo('/msite')" :class="{on: $route.path==='/msite'}">
       <span class="item_icon">
         <i class="iconfont icon-waimai"></i>
       </span>
       <span>外卖</span>
-    </a>
-    <a href="javascript:;" class="guide_item" @click="goTo('/search')" :class="{on:$route.path==='/search'}">
+    </span>
+    <a href="javascript:;" class="guide_item" @click="goTo('/search')" :class="{on: $route.path==='/search'}">
       <span class="item_icon">
         <i class="iconfont icon-search"></i>
       </span>
       <span>搜索</span>
     </a>
-    <a href="javascript:;" class="guide_item" @click="goTo('/order')" :class="{on:$route.path==='/order'}">
+    <a href="javascript:;" class="guide_item" @click="goTo('/order')" :class="{on: $route.path==='/order'}">
       <span class="item_icon">
         <i class="iconfont icon-dingdan"></i>
       </span>
       <span>订单</span>
     </a>
-    <a href="javascript:;" class="guide_item" @click="goTo('/profile')" :class="{on:$route.path==='/profile'}">
+    <a href="javascript:;" class="guide_item" @click="goTo('/profile')" :class="{on: $route.path==='/profile'}">
       <span class="item_icon">
         <i class="iconfont icon-geren"></i>
       </span>
@@ -28,17 +28,16 @@
 </template>
 <script>
   export default {
-    methods:{
-      //通过路由器导航 跳转路由   要传参  传的是 路由的路径
-      goTo(path){
+    methods: {
+      goTo (path) {
+        // 通过路由导航跳转路由
         this.$router.replace(path)
       }
     }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-  // 因为这个css中用到了 misins 混合所以 要引入 以后的 同理
-  @import '../../common/stylus/misins.styl'
+  @import "../../common/stylus/mixins.styl"
 
   .footer_guide  //footer
     top-border-1px(#e4e4e4)
