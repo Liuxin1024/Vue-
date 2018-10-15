@@ -56,6 +56,7 @@
 </template>
 <script>
   import {reqPwdLogin,reqSendCode,reqSmsLogin,} from '../../api'
+  import {Toast,MessageBox} from 'mint-ui'
   export default {
     data () {
       return {
@@ -88,12 +89,16 @@
           this.computeTime--
         },1000)
         const result = await reqSendCode(this.phone)
-        if (result.code === 0) {
-            alert('发送验证码成功~~')
-        }else {
-          //既然失败了 那么定时器也应该不动了
-          this.computeTime = 0    // 定时器等于 0 进入上面的逻辑 然后就停了
-          alert('警告：'+result.msg)
+          if (result.code === 0) {
+//            alert('发送验证码成功~~')
+            Toast('发送验证码成功~~')
+          }else {
+            //既然失败了 那么定时器也应该不动了
+            this.computeTime = 0    // 定时器等于 0 进入上面的逻辑 然后就停了
+//          alert('警告：'+result.msg)
+            MessageBox.alert(result.msg).then(action => {
+              console.log('为啥是点击确定');
+            });
         }
 
       },
