@@ -29,7 +29,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 试一下样式
 ---
 
->试一下样式
+> 这个是 后面部分的练习
 
 ```
 试一下样式
