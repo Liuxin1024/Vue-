@@ -10,5 +10,5 @@ export default {
   // 总价格
   totalPrice (state) {
     return state.cartFoods.reduce((pre, food) => pre + food.count*food.price, 0)
-  }
+  },
 }

@@ -73,7 +73,7 @@
       return {
         scrollY: 0, // 右侧列表Y轴方向滑动的坐标
         tops: [], // 右侧分类li的top值组成的数据
-        food: {}, // 当前需要显示的food
+        food:{}    // 当前需要显示的 food 传给 Food 组件让他去显示
       }
     },
 
@@ -169,13 +169,21 @@
       },
 
       // 显示food详情
-      showFood (food) {
+      showFood(food){
+        //更新food 数据
+        this.food = food
+        //在父组件得到子组件的方法 并调用
+        //this.$refs.food 可以得到 这个food子组件
+        // 在点 .函数名 直接调用要 用的方法
+        this.$refs.food.toggleShow()
+      }
+    /*  showFood (food) {
         // 更新food数据
         this.food = food
         // 显示food组件界面
-        /*在父组件中得到子组件对象, 并调用它的方法*/
+        /!*在父组件中得到子组件对象, 并调用它的方法*!/
         this.$refs.food.toggleShow()
-      }
+      }*/
     },
 
     components: {

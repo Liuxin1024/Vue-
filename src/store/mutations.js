@@ -46,19 +46,25 @@ export default {
   },
 
   [INCREMENT_FOOD_COUNT](state,{food}){
-    //判断pfood中有没有 count 若有就加一
+    //判断food中有没有 count 若有就加一
     if (food.count) {
         food.count++
     }else{  // 第一次增加没有count
       //food.count = 1    // 给 food 添加一个新的属性 count 值为1
       Vue.set( food, 'count', 1 )  // 第一个是要响应的目标 第二个是要响应的index属性 第三个是 要响应的值 在这是1
       //{string | number} key 注意 值是一个属性名是字符串
+      //将新的food添加到购物车中
+      state.cartFoods.push(food)
     }
   },
 
   [DECREMENT_FOOD_COUNT](state,{food}){
     if (food.count) {   //如果有值 数值就减减
         food.count--
+    }
+    //如果值减为0 就将food 从购物车中删除
+    if (food.count === 0) {
+        state.cartFoods.splice(state.cartFoods.indexOf(food),1)
     }
   },
  /* [INCREMENT_FOOD_COUNT](state, {food}) {

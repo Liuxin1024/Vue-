@@ -19,7 +19,7 @@
         </div>
       </div>
       <transition name="move">
-        <div class="shopcart-list" v-show="listShow">
+        <div class="shopcart-list" v-show="isShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
             <span class="empty" @click="clearCart">清空</span>
@@ -55,16 +55,22 @@
         isShow: false
       }
     },
-
     computed: {
-      ...mapState(['cartFoods', 'info']),
-      ...mapGetters(['totalCount', 'totalPrice']),
-      payClass () {
+
+      ...mapState(['cartFoods','info']),
+      ...mapGetters(['totalCount','totalPrice']),
+ /*     payClass () {
         const {totalPrice} = this
         const {minPrice} = this.info
         return totalPrice<minPrice ? 'not-enough' : 'enough'
+      },*/
+      payClass(){
+        //现获取要计算的两个值】
+        const {totalPrice} = this
+        const {minPrice} = this.info    //这个info 得从this中获取
+        return minPrice >totalPrice ? 'not-enough' : 'enough'
       },
-      payText () {
+      /*payText () {
         const {totalPrice} = this
         const {minPrice} = this.info
         if(totalPrice===0) {
@@ -73,6 +79,18 @@
           return `还差￥${minPrice-totalPrice}元起送`
         } else {
           return '去结算'
+        }
+      },*/
+      payText(){
+        const {totalPrice} = this
+        const {minPrice} = this.info
+        //这的 totalPrice 有三种状态
+        if (totalPrice === 0) {
+            return `$${minPrice}美元起送`
+        }else if(totalPrice < minPrice){
+          return `还差${minPrice-totalPrice}美元起送`
+        }else{
+          return `去结算~~~`
         }
       },
       listShow () {
@@ -113,6 +131,7 @@
           this.isShow = !this.isShow
         }
       },
+
 
       clearCart () {
         this.$store.dispatch('clearCart')

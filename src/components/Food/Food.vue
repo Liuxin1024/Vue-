@@ -36,16 +36,15 @@
     props:{
       food:Object    //要用到food
     },
-
-    data () {
+    data(){
       return {
-        isShow: false
+        isShow : false  //默认是 隐藏的
       }
     },
 
-    methods: {
-      // 切换显示隐藏
-      toggleShow () {
+    methods:{  //给toggleShow 设置一个 点击的方法
+      toggleShow(){
+        //切换显示隐藏的方法
         this.isShow = !this.isShow
       }
     }

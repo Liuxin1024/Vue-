@@ -36,6 +36,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 
 ```
- 这里面是可以放代码
+ 写到ShopCart 最后解BUG了 
 ```
 
